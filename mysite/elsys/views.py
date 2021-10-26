@@ -1,21 +1,21 @@
 from django.shortcuts import render
-import requests
+import requests // messy imports
 from .models import Car
 # Create your views here.
-PI = 3.14
+PI = 3.14 // PI definition is not necessary
 
 from django.http import HttpResponse, JsonResponse
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
-def home(request):
+def home(request): // bad name
     info = requests.get('https://api-v3.mbta.com/predictions?page%5Boffset%5D=0&page%5Blimit%5D=10&sort=departure_time&include=schedule%2Ctrip&filter%5Bdirection_id%5D=0&filter%5Bstop%5D=place-north').json()
-    our_data = []
+    our_data = [] // data for what
     for index in info["data"]:
         curr_trainData = {}
         curr_trainData["departureTime"] = index["attributes"]["departure_time"]
-        for kindex in info["included"]:
+        for kindex in info["included"]: // why kindex
             if index["relationships"]["trip"]["data"]["id"] == kindex["id"]:
                 curr_trainData["destination"] = kindex["attributes"]["headsign"]
 
@@ -42,6 +42,6 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
-def cars(request):
+def cars(request): // mega swag review
     cars = Car.objects.all()
     return render(request, 'cars.html', {'cars':cars})
