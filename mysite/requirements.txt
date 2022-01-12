@@ -1,0 +1,3 @@
+djangorestframework
+requests
+rest_framework_swagger
